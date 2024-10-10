@@ -50,15 +50,15 @@ public:
 
 	}
 
-	static int ReadIntNumber(string invalid) {
+	static int ReadIntNumber() {
 		int number;
-		cout << "\ninter an intger: ";
+		//cout << "\ninter an intger: ";
 		while (true) {
 			cin >> number;
 			if (cin.fail()) {
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << invalid;
+				cout << "invalid number, enter agin: ";
 
 
 			}
@@ -71,15 +71,37 @@ public:
 
 	}
 
-	static double ReadDplNumber(string invalid) {
+	static short ReadShortNumber() {
+		short number;
+		//cout << "\ninter an intger: ";
+		while (true) {
+			cin >> number;
+			if (cin.fail()) {
+				cin.clear();
+				cin.ignore(numeric_limits<streamsize>::max(), '\n');
+				cout << "invalid number, enter agin: ";
+
+
+			}
+			else {
+				return number;
+			}
+
+		}
+
+
+	}
+
+	static double ReadDplNumber() {
 		double number;
-		cout << "\ninter a duoble: ";
+		//cout << "\ninter a duoble: ";
 		while (true) {
 			cin >> number;
 			if (cin.fail()) {
 				cin.clear();
 				cin.ignore(numeric_limits<streamsize>::max(), '\n');
-				cout << invalid;
+				 cout << "invalid number, enter agin: ";
+				;
 
 
 			}
@@ -91,27 +113,43 @@ public:
 
 
 	}
-	static int  ReadIntNumberBetween(int from, int to, string invalidm) {
-		int number;
-		cout << "inter a number from " << from << " to " << to << ":";
 
-		number = ReadIntNumber(invalidm);
+	static short  ReadShortNumberBetween(short from, short to, string invalidm) {
+		short number;
+		//cout << "inter a number from " << from << " to " << to << ":";
+
+		number = ReadIntNumber();
 		while (!IsNumberBetween(number, from, to)) {
 			cout << invalidm;
-			number = ReadIntNumber(invalidm);
+			number = ReadIntNumber();
 
 
 		}
 		return number;
 	};
-	static double ReadDblNumberBetween(double from, double to, string invalidm) {
-		double number;
-		cout << "inter a number from " << from << " to " << to << ":";
+	static int  ReadIntNumberBetween(int from, int to, string invalidm) {
+		int number;
+		//cout << "inter a number from " << from << " to " << to << ":";
 
-		number =ReadDplNumber(invalidm);
+		number = ReadIntNumber();
 		while (!IsNumberBetween(number, from, to)) {
 			cout << invalidm;
-			number = ReadIntNumber(invalidm);
+			number = ReadIntNumber();
+
+
+		}
+		return number;
+	};
+
+
+	static double ReadDblNumberBetween(double from, double to, string invalidm) {
+		double number;
+		//cout << "inter a number from " << from << " to " << to << ":";
+
+		number =ReadDplNumber();
+		while (!IsNumberBetween(number, from, to)) {
+			cout << invalidm;
+			number = ReadIntNumber();
 
 
 		}

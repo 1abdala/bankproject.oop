@@ -193,7 +193,7 @@
         }
         __declspec(property(get = GetAccountBalance, put = SetAccountBalance)) float AccountBalance;
 
-        void Print()
+      /*  void Print()
         {
             cout << "\nClient Card:";
             cout << "\n___________________";
@@ -207,7 +207,7 @@
             cout << "\nBalance     : " << _AccountBalance;
             cout << "\n___________________\n";
 
-        }
+        }*/
 
         static clsBankClient Find(string AccountNumber)
         {
