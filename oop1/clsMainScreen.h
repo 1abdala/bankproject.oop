@@ -8,6 +8,10 @@
 #include "clsClientListScreen.h"
 #include "clsAddNewClientScreen.h"
 #include "clsDeleteClientScreen.h"
+#include "clsUpdateClientScreen.h"
+#include "clsFindClientScreen.h"
+
+
 
 
 
@@ -63,16 +67,14 @@ private:
    }
    static void  _ShowUpdateClientScreen() {
 
-       cout << "here is update clients screen";
-
+       clsUpdateClientScreen::ShowUpdateClientScreen();
 
   }
 
 
    static void _ShowFindClientScreen() {
 
-       cout << "here is find clients screen";
-
+       clsFindClientScreen::ShowFindClientScreen();
 
 
   }

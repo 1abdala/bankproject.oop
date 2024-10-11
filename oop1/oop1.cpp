@@ -24,43 +24,6 @@ clsBankClient readclientinfo(clsBankClient& client) {
     return client;
 }
 
-void updateclient() {
-    string accnumber = "";
-    cout << "inter client number ";
-    cin >> accnumber;
-    while (!clsBankClient::IsClientExist(accnumber)) {
-        cout << "account number not found please inrer another number : ";
-        cin >> accnumber;
-
-
-    }
-    clsBankClient c1 = clsBankClient::Find(accnumber);
-    c1.Print();
-    cout << "update client info:";
-    cout << "\n_____________________________________________\n";
-     readclientinfo(c1);
-     c1.Save();
-     clsBankClient::enSaveResults saveresult;
-     saveresult= c1.Save();
-
-     switch (saveresult) {
-
-     case clsBankClient::enSaveResults::svSucceeded:
-     {
-         cout << "save has been done ";
-
-
-     }
-
-     case clsBankClient::enSaveResults::svFaildEmptyObject:
-         cout << "save faild";
-
-     }
-
-
-
-}
-
 void addnewclient() {
     string accnum="";
     cout << "inter account number: ";
