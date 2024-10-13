@@ -10,7 +10,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsUpdateClientScreen.h"
 #include "clsFindClientScreen.h"
-
+#include"clsTransactionsScreen.h"
 
 
 
@@ -88,8 +88,7 @@ private:
 
    static void _ShowTransactionsMenue() {
 
-       cout << "here is transactions clients screen";
-
+       clsTransactionsScreen::ShowTransactionsMenue();
 
    }
 
@@ -138,7 +137,7 @@ private:
         case enMainMenueOptions::eShowTransactionsMenue:
             system("cls");
             _ShowTransactionsMenue();
-            _GoBackToMainMenue();
+            ShowMainMenue();
             break;
 
         case enMainMenueOptions::eManageUsers:
