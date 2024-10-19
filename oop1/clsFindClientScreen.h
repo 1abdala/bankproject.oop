@@ -26,6 +26,12 @@ class clsFindClientScreen :protected clsScreen
 public:
 
    static void ShowFindClientScreen() {
+
+       if (!CheckAccessRights(clsUser::enPermission::pFindClient)) {
+
+           return;
+
+       }
         string accnumber;
         clsScreen::_DrawScreenHeader("find client screen ");
         cout << "inter client number:  ";

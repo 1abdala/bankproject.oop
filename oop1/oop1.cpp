@@ -16,7 +16,16 @@
 int main()
 
 {
-    clsLoginScreen::ShowLoginScreen(); 
-    system("pause>0");
-    return 0;
+  
+    while (true) {
+
+        if (!clsLoginScreen::ShowLoginScreen())
+            break;
 }
+   // system("pause>0");
+    return 0;
+
+    }
+
+
+  

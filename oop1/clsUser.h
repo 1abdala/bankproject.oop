@@ -103,7 +103,34 @@ private:
         }
 
     }
+     string _ConverUserHestoryToLine(string Seperator = "#//#")
+    {
 
+        string UserRecord = "";
+        UserRecord += clsDate::DateToString(clsDate()) + " - ";
+        UserRecord += clsDate::ClockTimeToString(clsDate()) + Seperator;
+        UserRecord += UserName + Seperator;
+        UserRecord += Password + Seperator;
+        UserRecord += to_string(Permissions);
+
+        return UserRecord;
+
+    }
+
+     void _AddDataLineToFile()
+    {
+        fstream MyFile;
+        MyFile.open("LoginRegister.txt", ios::out | ios::app);
+
+        if (MyFile.is_open())
+        {
+
+            MyFile << _ConverUserHestoryToLine() << endl;
+
+            MyFile.close();
+        }
+
+    }
     void _Update()
     {
         vector <clsUser> _vUsers;
@@ -162,6 +189,14 @@ public:
         _Password = Password;
         _Permissions = Permissions;
     }
+
+    enum enPermission {
+
+        eAll = -1, pListClients = 1, pAddNewClient = 2, pDeleteClient = 4,
+        pUpdateClients = 8, pFindClient = 16, pTranactions = 32, pManageUsers = 64
+    };
+
+   
 
     bool IsEmpty()
     {
@@ -232,6 +267,21 @@ public:
         return _GetEmptyUserObject();
     }
 
+
+    void RigesterLogin()
+    {
+        fstream MyFile;
+        MyFile.open("LoginRegister.txt", ios::out | ios::app);
+
+        if (MyFile.is_open())
+        {
+
+            MyFile << _ConverUserHestoryToLine() << endl;
+
+            MyFile.close();
+        }
+
+    }
     static clsUser Find(string UserName, string Password)
     {
 
@@ -342,6 +392,17 @@ public:
         return _LoadUsersDataFromFile();
     }
 
+    bool ChekceAccessPermisson(enPermission Permission) {
 
+        if (this->Permissions == enPermission::eAll)
+
+            return true;
+
+        if ((this->Permissions & Permission) == Permission)
+
+            return true;
+
+        else return false;
+    }
 };
 

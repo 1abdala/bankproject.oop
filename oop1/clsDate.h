@@ -10,7 +10,9 @@ class clsDate
 
 {
 private:
-
+    short _Seconds=1;
+    short _Minutes=1;
+    short _Houres=1;
 	short _Day = 1;
 	short _Month = 1;
 	short _Year = 1900;
@@ -24,6 +26,9 @@ public:
 		_Day = now->tm_mday;
 		_Month = now->tm_mon + 1;
 		_Year = now->tm_year + 1900;
+		_Houres = now->tm_hour;
+		_Minutes = now->tm_min;
+		_Seconds = now->tm_sec;
 	}
 
 	clsDate(string sDate)
@@ -65,6 +70,35 @@ public:
 	}
 	__declspec(property(get = GetDay, put = SetDay)) short Day;
 
+
+	void SetHours(short Hours) {
+		_Houres = Hours;
+	}
+
+	short GetHours() {
+		return _Houres;
+	}
+	__declspec(property(get = GetHours, put = SetHours)) short Houres;
+
+	void SeMintues(short Minutes) {
+		_Minutes = Minutes;
+	}
+
+	short GetMinutes() {
+		return _Minutes;
+	}
+	__declspec(property(get = GetMinutes, put = SeMintues)) short Minutes;
+
+
+	void SetSeconds(short Seconds) {
+	_Seconds = Seconds;
+	}
+
+	short GeSeconds() {
+		return _Seconds;
+	}
+	__declspec(property(get = GeSeconds, put = SetSeconds)) short Seconds;
+
 	void SetMonth(short Month) {
 		_Month = Month;
 	}
@@ -104,6 +138,8 @@ public:
 		return clsDate(Day, Month, Year);
 	}
 
+	 
+
 	static	bool IsValidDate(clsDate Date)
 	{
 
@@ -127,6 +163,9 @@ public:
 			}
 		}
 
+
+		
+
 		short DaysInMonth = NumberOfDaysInAMonth(Date.Month, Date.Year);
 
 		if (Date.Day > DaysInMonth)
@@ -144,6 +183,23 @@ public:
 	{
 		return  to_string(Date.Day) + "/" + to_string(Date.Month) + "/" + to_string(Date.Year);
 	}
+	static string ClockTimeToString(clsDate Date)
+	{
+		return  to_string(Date.Houres) + ":" + to_string(Date.Minutes) + ":" + to_string(Date.Seconds);
+	}
+
+	//static void CurrentClockTime() {
+	//	// Get the current time
+	//	time_t currentTime = std::time(nullptr);
+
+	//	// Convert to local time
+	//	tm* localTime = localtime(&currentTime);
+
+	//	// Extract hours, minutes, and seconds
+	//	_Houres = localTime->tm_hour;
+	//	_Minutes = localTime->tm_min;
+	//	_Seconds = localTime->tm_sec;
+	//}
 
 	string DateToString()
 	{
@@ -519,6 +575,8 @@ public:
 		return (Month == 12);
 	}
 
+	
+	
 	static clsDate AddOneDay(clsDate Date)
 	{
 		if (IsLastDayInMonth(Date))

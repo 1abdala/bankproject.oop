@@ -39,7 +39,7 @@ class clsAddNewUserScreen :protected clsScreen
         cout << "\nEmail       : " << User.Email;
         cout << "\nPhone       : " << User.Phone;
         cout << "\nPassword    : " << User.Password;
-        cout << "\Permissions     : " << User.Permissions;
+        cout << "\nPermissions     : " << User.Permissions;
         cout << "\n___________________\n";
 
     }
@@ -48,6 +48,8 @@ public:
 
 
     static void AddNewUserScreen() {
+
+
         string UserName = "";
         _DrawScreenHeader("Add New User Screen");
         cout << "inter Username : ";

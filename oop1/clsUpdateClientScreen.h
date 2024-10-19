@@ -45,6 +45,13 @@ class clsUpdateClientScreen : protected clsScreen
     
 public: 
     static void ShowUpdateClientScreen() {
+
+
+        if (!CheckAccessRights(clsUser::enPermission::pUpdateClients)) {
+
+            return;
+
+        }
         string accnumber = "";
         _DrawScreenHeader("update client screen ");
         cout << "inter client account ";

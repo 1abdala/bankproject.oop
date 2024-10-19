@@ -94,6 +94,12 @@ class clsTransactionsScreen : protected clsScreen
     
 public:
 	static void ShowTransactionsMenue() {
+
+        if (!CheckAccessRights(clsUser::enPermission::pTranactions)) {
+
+            return;
+
+        }
         system("cls");
 		_DrawScreenHeader("\tTransactions screen");
         

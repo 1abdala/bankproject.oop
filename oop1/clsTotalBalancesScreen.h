@@ -24,6 +24,7 @@ public:
     static void ShowTotalBalances()
     {
 
+
         vector <clsBankClient> vClients = clsBankClient::GetClientsList();
 
 

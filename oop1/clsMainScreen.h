@@ -15,14 +15,6 @@
 #include "Glopal.h"
 
 
-
-
-
-
-
-
-
-
 class clsMainScreen: protected clsScreen
 {
 private:

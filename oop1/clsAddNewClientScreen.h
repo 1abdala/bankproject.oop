@@ -50,6 +50,14 @@ public:
 
 
     static void AddNewClientScreen() {
+
+
+        if (!CheckAccessRights(clsUser::enPermission::pAddNewClient)) {
+            
+            return;
+
+        }
+
         string accnum = "";
         _DrawScreenHeader("Add New Client Screen");
         cout << "inter account number: ";

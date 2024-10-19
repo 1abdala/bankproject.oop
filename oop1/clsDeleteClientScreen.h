@@ -28,6 +28,12 @@ class clsDeleteClientScreen :protected clsScreen
 public:
 
     static void ShowDeleteClientScreen() {
+
+        if (!CheckAccessRights(clsUser::enPermission::pDeleteClient)) {
+
+            return;
+
+        }
         string accnumber = "";
         char sure;
         clsScreen::_DrawScreenHeader("Delete client screen ");

@@ -6,16 +6,23 @@
 #include "clsMainScreen.h"
 
 class clsLoginScreen:clsScreen
-
+	
 {
-	static void _login() {
+	static bool _login() {
 		bool Faildlogine = false;
+		short count = 3;
 
 		do {
+
 			if (Faildlogine) {
 				cout << "\nuser name or password is wrong\n";
-
-
+				count--;
+				cout << "you have " <<count <<"(s) trailes to login.\n\n";
+				
+			}
+			if (count == 0) {
+				cout<<"you have been locked after 3 trais";
+				return false ;
 			}
 			string username;
 			cout << "Inter UserName: ";
@@ -28,17 +35,20 @@ class clsLoginScreen:clsScreen
 
 				Faildlogine = true;
 			}
-
+			else Faildlogine = false;
 
 		} while (Faildlogine);
+		CurrentUser.RigesterLogin();
 		clsMainScreen::ShowMainMenue();
+
+		return true;
 	}
 
 public:
-	static void ShowLoginScreen() {
+	static bool ShowLoginScreen() {
 		system("cls");
 		_DrawScreenHeader("\t login screen ");
-		_login();
+		return _login();
 
 
 	}
