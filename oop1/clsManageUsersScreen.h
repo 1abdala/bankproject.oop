@@ -48,14 +48,14 @@ class clsManageUsersScreen:clsScreen
 
     static void _ShowAddNewUserScreen() {
 
-        clsAddNewUserScreen::AddNewUserScreen();
+        clsAddNewUserScreen::ShowAddNewUserScreen();
     }
     static void _ShowDeleteUserScreen() {
 
         clsDeleteUserScreen::ShowDeletUserScreen();
     }
     static void _ShowUpdateUserScreen() {
-        clsUpdateUserScreen::ShowUpdatUserScreen();
+        clsUpdateUserScreen::ShowUpdateUserScreen();
     }
     static void _ShowFindCUserScreen() {
 
@@ -109,7 +109,7 @@ class clsManageUsersScreen:clsScreen
 public:
     static void ShowManageuUsersMenue() {
 
-        if (!CheckAccessRights(clsUser::enPermission::pManageUsers)) {
+        if (!CheckAccessRights(clsUser::enPermissions::pManageUsers)) {
 
             return;
 

@@ -29,8 +29,8 @@ public:
 
     static void ShowDeleteClientScreen() {
 
-        if (!CheckAccessRights(clsUser::enPermission::pDeleteClient)) {
-
+        if (!CheckAccessRights(clsUser::enPermissions::pDeleteClient)) {
+            
             return;
 
         }

@@ -52,7 +52,7 @@ public:
     static void AddNewClientScreen() {
 
 
-        if (!CheckAccessRights(clsUser::enPermission::pAddNewClient)) {
+        if (!CheckAccessRights(clsUser::enPermissions::pAddNewClient)) {
             
             return;
 

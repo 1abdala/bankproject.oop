@@ -24,9 +24,9 @@ protected:
         cout << "\t\t\t\t\tdate: " << clsDate::DateToString(clsDate());
         cout<<"\n\n";
     }
-    static bool CheckAccessRights(clsUser::enPermission Peremission) {
+    static bool CheckAccessRights(clsUser::enPermissions Peremission) {
 
-        if (!CurrentUser.ChekceAccessPermisson(Peremission)) {
+        if (!CurrentUser.CheckAccessPermission(Peremission)) {
             system("cls");
             cout << "\t\t\t\t\t___________________________________________";
             cout << "\n\n\t\t\t\t\t Access Denied! Contact uer Admin ";

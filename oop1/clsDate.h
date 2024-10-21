@@ -1,18 +1,20 @@
-#pragma once
-#pragma warning(disable : 4996)
-#include <iostream>
-#include "clsString.h"
-#include <string>
-#include <iomanip>
-#include <vector>
-using namespace std;
-class clsDate
 
+//ProgrammingAdivces.com
+//Mohammed Abu-Hadhoud
+#pragma warning(disable : 4996)
+#pragma once
+
+#include<iostream>
+#include<string>
+#include "clsString.h"
+
+using namespace std;
+
+class clsDate
 {
+
 private:
-    short _Seconds=1;
-    short _Minutes=1;
-    short _Houres=1;
+
 	short _Day = 1;
 	short _Month = 1;
 	short _Year = 1900;
@@ -26,16 +28,13 @@ public:
 		_Day = now->tm_mday;
 		_Month = now->tm_mon + 1;
 		_Year = now->tm_year + 1900;
-		_Houres = now->tm_hour;
-		_Minutes = now->tm_min;
-		_Seconds = now->tm_sec;
 	}
 
 	clsDate(string sDate)
 	{
 
 		vector <string> vDate;
-		vDate = clsString::Split (sDate, "/");
+		vDate = clsString::Split(sDate, "/");
 
 		_Day = stoi(vDate[0]);
 		_Month = stoi(vDate[1]);
@@ -69,35 +68,6 @@ public:
 		return _Day;
 	}
 	__declspec(property(get = GetDay, put = SetDay)) short Day;
-
-
-	void SetHours(short Hours) {
-		_Houres = Hours;
-	}
-
-	short GetHours() {
-		return _Houres;
-	}
-	__declspec(property(get = GetHours, put = SetHours)) short Houres;
-
-	void SeMintues(short Minutes) {
-		_Minutes = Minutes;
-	}
-
-	short GetMinutes() {
-		return _Minutes;
-	}
-	__declspec(property(get = GetMinutes, put = SeMintues)) short Minutes;
-
-
-	void SetSeconds(short Seconds) {
-	_Seconds = Seconds;
-	}
-
-	short GeSeconds() {
-		return _Seconds;
-	}
-	__declspec(property(get = GeSeconds, put = SetSeconds)) short Seconds;
 
 	void SetMonth(short Month) {
 		_Month = Month;
@@ -138,7 +108,27 @@ public:
 		return clsDate(Day, Month, Year);
 	}
 
-	 
+	static string GetSystemDateTimeString()
+	{
+		//system datetime string
+		time_t t = time(0);
+		tm* now = localtime(&t);
+
+		short Day, Month, Year, Hour, Minute, Second;
+
+		Year = now->tm_year + 1900;
+		Month = now->tm_mon + 1;
+		Day = now->tm_mday;
+		Hour = now->tm_hour;
+		Minute = now->tm_min;
+		Second = now->tm_sec;
+
+		return (to_string(Day) + "/" + to_string(Month) + "/"
+			+ to_string(Year) + " - "
+			+ to_string(Hour) + ":" + to_string(Minute)
+			+ ":" + to_string(Second));
+
+	}
 
 	static	bool IsValidDate(clsDate Date)
 	{
@@ -163,9 +153,6 @@ public:
 			}
 		}
 
-
-		
-
 		short DaysInMonth = NumberOfDaysInAMonth(Date.Month, Date.Year);
 
 		if (Date.Day > DaysInMonth)
@@ -179,31 +166,15 @@ public:
 	{
 		return IsValidDate(*this);
 	}
+
 	static string DateToString(clsDate Date)
 	{
 		return  to_string(Date.Day) + "/" + to_string(Date.Month) + "/" + to_string(Date.Year);
 	}
-	static string ClockTimeToString(clsDate Date)
-	{
-		return  to_string(Date.Houres) + ":" + to_string(Date.Minutes) + ":" + to_string(Date.Seconds);
-	}
-
-	//static void CurrentClockTime() {
-	//	// Get the current time
-	//	time_t currentTime = std::time(nullptr);
-
-	//	// Convert to local time
-	//	tm* localTime = localtime(&currentTime);
-
-	//	// Extract hours, minutes, and seconds
-	//	_Houres = localTime->tm_hour;
-	//	_Minutes = localTime->tm_min;
-	//	_Seconds = localTime->tm_sec;
-	//}
 
 	string DateToString()
 	{
-		return DateToString(*this);
+		return  DateToString(*this);
 	}
 
 	static bool isLeapYear(short Year)
@@ -498,6 +469,7 @@ public:
 
 		return Date;
 	}
+
 	void AddDays(short Days)
 	{
 
@@ -533,6 +505,7 @@ public:
 
 
 	}
+
 	static bool IsDate1BeforeDate2(clsDate Date1, clsDate Date2)
 	{
 		return  (Date1.Year < Date2.Year) ? true : ((Date1.Year == Date2.Year) ? (Date1.Month < Date2.Month ? true : (Date1.Month == Date2.Month ? Date1.Day < Date2.Day : false)) : false);
@@ -540,7 +513,6 @@ public:
 
 	bool IsDateBeforeDate2(clsDate Date2)
 	{
-
 		//note: *this sends the current object :-) 
 		return  IsDate1BeforeDate2(*this, Date2);
 
@@ -575,8 +547,6 @@ public:
 		return (Month == 12);
 	}
 
-	
-	
 	static clsDate AddOneDay(clsDate Date)
 	{
 		if (IsLastDayInMonth(Date))
@@ -1180,6 +1150,7 @@ public:
 	{
 		return CompareDates(*this, Date2);
 	}
+
 
 
 };

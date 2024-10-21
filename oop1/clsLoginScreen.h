@@ -1,57 +1,73 @@
 #pragma once
-#include "Glopal.h"
-#include"clsUser.h"
-#include"clsScreen.h"
-#include "clsInputValidate.h"
+
+#include <iostream>
+#include "clsScreen.h"
+#include "clsUser.h"
+#include <iomanip>
 #include "clsMainScreen.h"
+#include "Glopal.h"
 
-class clsLoginScreen:clsScreen
-	
+class clsLoginScreen :protected clsScreen
 {
-	static bool _login() {
-		bool Faildlogine = false;
-		short count = 3;
 
-		do {
+private:
 
-			if (Faildlogine) {
-				cout << "\nuser name or password is wrong\n";
-				count--;
-				cout << "you have " <<count <<"(s) trailes to login.\n\n";
-				
-			}
-			if (count == 0) {
-				cout<<"you have been locked after 3 trais";
-				return false ;
-			}
-			string username;
-			cout << "Inter UserName: ";
-			username = clsInputValidate::ReadString();
-			string pass;
-			cout << "\nInter a password: ";
-			pass = clsInputValidate::ReadString();
-			CurrentUser = clsUser::Find(username, pass);
-			if (CurrentUser.IsEmpty()) {
+    static  bool _Login()
+    {
+        bool LoginFaild = false;
+        short FaildLoginCount = 0;
 
-				Faildlogine = true;
-			}
-			else Faildlogine = false;
+        string Username, Password;
+        do
+        {
 
-		} while (Faildlogine);
-		CurrentUser.RigesterLogin();
-		clsMainScreen::ShowMainMenue();
+            if (LoginFaild)
+            {
+                FaildLoginCount++;
 
-		return true;
-	}
+                cout << "\nInvlaid Username/Password!";
+                cout << "\nYou have " << (3 - FaildLoginCount)
+                    << " Trial(s) to login.\n\n";
+            }
+
+            if (FaildLoginCount == 3)
+            {
+                cout << "\nYour are Locked after 3 faild trails \n\n";
+                return false;
+            }
+
+            cout << "Enter Username? ";
+            cin >> Username;
+
+            cout << "Enter Password? ";
+            cin >> Password;
+
+            CurrentUser = clsUser::Find(Username, Password);
+
+            LoginFaild = CurrentUser.IsEmpty();
+
+        } while (LoginFaild);
+
+        CurrentUser.RegisterLogIn();
+        clsMainScreen::ShowMainMenue();
+        return true;
+    }
+
+    void _Log()
+    {
+
+    }
 
 public:
-	static bool ShowLoginScreen() {
-		system("cls");
-		_DrawScreenHeader("\t login screen ");
-		return _login();
 
 
-	}
+    static bool ShowLoginScreen()
+    {
+        system("cls");
+        _DrawScreenHeader("\t    Login Screen");
+        return _Login();
+
+    }
 
 };
 

@@ -27,7 +27,7 @@ public:
 
    static void ShowFindClientScreen() {
 
-       if (!CheckAccessRights(clsUser::enPermission::pFindClient)) {
+       if (!CheckAccessRights(clsUser::enPermissions::pFindClient)) {
 
            return;
 
