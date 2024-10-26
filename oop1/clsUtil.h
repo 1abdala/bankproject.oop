@@ -200,28 +200,30 @@ public:
 		return tab;
 	}
 
-	static string encryptText(string text, short key)
+	static string encryptText(string text, short key=2 )
 	{
-		string encryptionText = "";
+	
 
-		for (short i = 0; i < text.length(); i++)
-		{
-			encryptionText += text[i] + key;
+		for (short i = 0; i < text.length(); i++) {
+
+			text[i] = char((int)text[i] + key);
+
+
 		}
-
-		return encryptionText;
+		return text;
 	}
 
-	static string decryptText(string text, short key)
+	static string decryptText(string text, short key=2)
 	{
 		string decryptionText = "";
 
 		for (short i = 0; i < text.length(); i++)
 		{
-			decryptionText += text[i] - key;
-		}
+			text[i] = char((int)text[i] - key);
 
-		return decryptionText;
+
+		}
+		return text;
 	}
 	
 	static string NumberToText(int Number)

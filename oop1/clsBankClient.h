@@ -5,7 +5,7 @@
 #include "clsString.h"
 #include <vector>
 #include <fstream>
-
+#include"Glopal.h"
 using namespace std;
 class clsBankClient : public clsPerson
 {
@@ -28,6 +28,8 @@ private:
             vClientData[3], vClientData[4], vClientData[5], stod(vClientData[6]));
 
     }
+
+    struct stTrasnferLog;
 
     static string _ConverClientObjectToLine(clsBankClient Client, string Seperator = "#//#")
     {
@@ -144,6 +146,58 @@ private:
 
     }
 
+
+    string _PreparTransferRecord(clsBankClient DestinationClient, float Amount, string Seperator = "#//#")
+    {
+        string LoginRecord = "";
+        LoginRecord += clsDate::GetSystemDateTimeString() + Seperator;
+        LoginRecord += _AccountNumber + Seperator;
+        LoginRecord += DestinationClient.AccountNumber() + Seperator;
+        LoginRecord += to_string(Amount) + Seperator;
+        LoginRecord += to_string(_AccountBalance) + Seperator;
+        LoginRecord += to_string(DestinationClient.AccountBalance) + Seperator;
+        LoginRecord += CurrentUser.UserName;
+
+        return LoginRecord;
+    }
+
+    void TransferLog(clsBankClient DestinationClient, float Amount) {
+
+        fstream Myfile;
+        string transferrecord = _PreparTransferRecord(DestinationClient, Amount);
+        Myfile.open("TransferLog.txt", ios::out | ios::app);
+        if (Myfile.is_open()) {
+
+            Myfile << transferrecord << endl;
+            Myfile.close();
+
+        }
+
+
+    }
+   
+
+    static stTrasnferLog _ConvertTransferRegisterLineToRecord(string Line, string Seperator = "#//#")
+    {
+        stTrasnferLog LoginRegisterRecord;
+
+
+        vector <string> LoginRegisterDataLine = clsString::Split(Line, Seperator);
+        LoginRegisterRecord.date = LoginRegisterDataLine[0];
+        LoginRegisterRecord.SourceClient = LoginRegisterDataLine[1];
+        LoginRegisterRecord.DestenitionClient = LoginRegisterDataLine[2];
+       LoginRegisterRecord.Amount = stoi(LoginRegisterDataLine[3]);
+       LoginRegisterRecord.SClientBalance = stoi(LoginRegisterDataLine[4]);
+       LoginRegisterRecord.DClientBalance = stoi(LoginRegisterDataLine[5]);
+       LoginRegisterRecord.UserName = LoginRegisterDataLine[6];
+
+
+
+        return LoginRegisterRecord;
+
+    }
+
+
     static clsBankClient _GetEmptyClientObject()
     {
         return clsBankClient(enMode::EmptyMode, "", "", "", "", "", "", 0);
@@ -164,7 +218,17 @@ public:
         _AccountBalance = AccountBalance;
 
     }
+    struct stTrasnferLog {
+        string date;
+        string SourceClient;
+        string DestenitionClient;
+        string UserName;
+        float Amount;
+        float SClientBalance;   
+        float DClientBalance;
+       
 
+    };
     bool IsEmpty()
     {
         return (_Mode == enMode::EmptyMode);
@@ -397,7 +461,57 @@ public:
 
         Withdraw(Amount);
         DestinationClient.Deposit(Amount);
+        TransferLog(DestinationClient, Amount);
         return true;
     }
+  /*  void _AddDataLineToFile(string  stDataLine)
+    {
+        fstream MyFile;
+        MyFile.open("Clients.txt", ios::out | ios::app);
+
+        if (MyFile.is_open())
+        {
+
+            MyFile << stDataLine << endl;
+
+            MyFile.close();
+        }
+
+    }*/
+
+    static  vector < stTrasnferLog > LoadTransferDataFromFile()
+    {
+
+        vector <stTrasnferLog> vClients;
+
+        fstream MyFile;
+        MyFile.open("TransferLog.txt", ios::in);//read Mode
+
+        if (MyFile.is_open())
+        {
+
+            string Line;
+
+
+            while (getline(MyFile, Line))
+            {
+
+                stTrasnferLog Client = _ConvertTransferRegisterLineToRecord(Line);
+
+                vClients.push_back(Client);
+            }
+
+            MyFile.close();
+
+        }
+
+        return vClients;
+
+    }
+
+    
+    
+
+
 };
 
