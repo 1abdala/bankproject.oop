@@ -4,6 +4,8 @@
 #include "clsInputValidate.h"
 #include "clsUtil.h"
 #include "clsLoginScreen.h"
+#include "clsCurrency.h"
+
 using namespace std;
 
 
@@ -13,6 +15,9 @@ using namespace std;
 int main()
 
 {
+
+
+ 
 
     while (true) {
 
