@@ -1,0 +1,1 @@
+This C++ Bank System is a console-based application that provides essential banking functionalities, including account management, deposits, withdrawals, and balance inquiries. Additionally, the system allows users to update and convert currency exchange rates, making it a versatile tool for handling multiple currencies.
